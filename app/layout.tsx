@@ -2,6 +2,7 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 
+import { ThemeProvider } from '@/components/theme-provider';
 import { fontSans } from '@/lib/font';
 import { cn } from '@/lib/utils';
 
@@ -23,7 +24,14 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
