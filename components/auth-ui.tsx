@@ -35,7 +35,7 @@ export default function AuthUI({ children }: Props) {
 
           <div className="hidden lg:relative lg:block lg:p-12">
             <Link href="/">
-              <FaTwitter size={80} />
+              <FaTwitter size={80} color="white" />
             </Link>
 
             <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
