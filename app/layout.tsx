@@ -2,7 +2,9 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 
+import SideBar from '@/components/sidebar';
 import { ThemeProvider } from '@/components/theme-provider';
+import TrendBar from '@/components/trendbar';
 import { fontSans } from '@/lib/font';
 import { cn } from '@/lib/utils';
 
@@ -30,7 +32,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="mx-auto flex w-full max-w-7xl justify-between gap-4 px-3">
+            <SideBar />
+            <main className="flex-[2]">{children}</main>
+            <TrendBar />
+          </div>
         </ThemeProvider>
       </body>
     </html>
