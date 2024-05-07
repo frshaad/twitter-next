@@ -1,3 +1,9 @@
+import SuggestedPeople from './suggested-people';
+
 export default function TrendBar() {
-  return <div className="flex-[1.5] bg-green-200">TrendBar</div>;
+  return (
+    <section className="hidden px-6 py-4 lg:block">
+      <SuggestedPeople />
+    </section>
+  );
 }
