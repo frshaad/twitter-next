@@ -1,6 +1,5 @@
+import { LogIn, UserRoundPlus } from 'lucide-react';
 import Link from 'next/link';
-
-import { cn } from '@/lib/utils';
 
 import { Button } from '../ui/button';
 
@@ -14,14 +13,24 @@ export default function RegisterButton({ type = 'signIn' }: Props) {
   return (
     <Button
       asChild
-      variant={isSignInType ? 'ghost' : 'secondary'}
+      variant={isSignInType ? 'ghost' : 'ghost'}
       className="rounded-full font-medium text-blue-400 hover:text-blue-400"
     >
       <Link
         href={isSignInType ? '/sign-in' : '/sign-up'}
-        className="font-medium"
+        className="flex items-center gap-3 font-medium"
       >
-        {isSignInType ? 'Log In' : 'Sign Up'}
+        {isSignInType ? (
+          <>
+            <LogIn size={18} />
+            Log In
+          </>
+        ) : (
+          <>
+            <UserRoundPlus size={18} />
+            Sign Up
+          </>
+        )}
       </Link>
     </Button>
   );
