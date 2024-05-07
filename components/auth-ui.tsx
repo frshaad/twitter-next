@@ -1,4 +1,3 @@
-import { auth } from '@clerk/nextjs';
 import { ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,14 +10,14 @@ const IMAGE_URL =
   'https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
 
 type Props = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export default function AuthUI({ children }: Props) {
-  const { session } = auth();
-  if (session) {
-    redirect('/');
-  }
+  // const { session } = auth();
+  // if (session) {
+  //   redirect('/');
+  // }
 
   return (
     <section>
@@ -57,7 +56,7 @@ export default function AuthUI({ children }: Props) {
               </Link>
             </Button>
           </div>
-          {children}
+          {/* {children} */}
         </main>
       </div>
     </section>
