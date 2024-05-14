@@ -11,7 +11,6 @@ import { signInSchema } from '@/lib/zod';
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    Google,
     Credentials({
       name: 'Credentials',
       credentials: {
