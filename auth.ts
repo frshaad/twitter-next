@@ -1,0 +1,58 @@
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import bcrypt from 'bcrypt';
+import NextAuth from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import Google from 'next-auth/providers/google';
+import { ZodError } from 'zod';
+
+import prisma from '@/lib/db';
+import { signInSchema } from '@/lib/zod';
+
+export const { auth, handlers, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    Google,
+    Credentials({
+      name: 'Credentials',
+      credentials: {
+        email: {},
+        password: {},
+      },
+      authorize: async (credentials) => {
+        try {
+          const { email, password } =
+            await signInSchema.parseAsync(credentials);
+
+          if (!email || !password) {
+            throw new Error('Invalid credentials');
+          }
+
+          const user = await prisma.user.findUnique({
+            where: { email },
+          });
+
+          if (!user || !user.hashedPassword) {
+            throw new Error('User not found.');
+          }
+
+          const isPasswordCorrect = await bcrypt.compare(
+            password,
+            user.hashedPassword,
+          );
+
+          if (!isPasswordCorrect) {
+            throw new Error('Password is incorrect');
+          }
+
+          return user;
+        } catch (error) {
+          if (error instanceof ZodError) {
+            return null;
+          }
+          return null;
+        }
+      },
+    }),
+  ],
+  debug: true,
+});
