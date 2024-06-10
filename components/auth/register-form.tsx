@@ -1,38 +1,76 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { FaGithub, FaGoogle } from 'react-icons/fa6';
 
+import signUp from '@/actions/register-fom.action';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { RegisterInputs, registerSchema } from '@/lib/zod';
+
+import ErrorMessage from './error-message';
 
 export default function RegisterForm() {
+  const {
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterInputs>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      username: '',
+      email: '',
+      password: '',
+    },
+  });
+
   return (
-    <div className="grid gap-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="first-name">First name</Label>
-          <Input id="first-name" placeholder="John" required />
+    <section className="grid gap-4">
+      <form action={signUp} className="grid gap-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="name">Your Name</Label>
+            <Input id="name" placeholder="John Doe" {...register('name')} />
+            {errors.name?.message && (
+              <ErrorMessage message={errors.name.message} />
+            )}
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              placeholder="johndoe"
+              {...register('username')}
+            />
+            {errors.username?.message && (
+              <ErrorMessage message={errors.username.message} />
+            )}
+          </div>
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="last-name">Last name</Label>
-          <Input id="last-name" placeholder="Doe" required />
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="john@example.com"
+            {...register('email')}
+          />
+          {errors.email?.message && (
+            <ErrorMessage message={errors.email.message} />
+          )}
         </div>
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="john@example.com"
-          required
-        />
-      </div>
-      <div className="grid gap-2">
-        <Label htmlFor="password">Password</Label>
-        <Input id="password" type="password" />
-      </div>
-      <Button type="submit" className="w-full">
-        Create an account
-      </Button>
+        <div className="grid gap-2">
+          <Label htmlFor="password">Password</Label>
+          <Input id="password" type="password" {...register('password')} />
+          {errors.password?.message && (
+            <ErrorMessage message={errors.password.message} />
+          )}
+        </div>
+        <Button type="submit" disabled={isSubmitting} className="w-full">
+          Create an account
+        </Button>
+      </form>
+
       <div className="flex items-center justify-between gap-3">
         <Button variant="outline" className="flex w-full items-center gap-2">
           <FaGoogle />
@@ -43,6 +81,6 @@ export default function RegisterForm() {
           GitHub
         </Button>
       </div>
-    </div>
+    </section>
   );
 }
