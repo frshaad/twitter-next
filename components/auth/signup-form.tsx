@@ -2,20 +2,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaGoogle } from 'react-icons/fa6';
 
-import signUp from '@/actions/register-fom.action';
+import signup from '@/actions/signup-fom.action';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { RegisterInputs, registerSchema } from '@/lib/zod';
+import { SignUpInputs, signUpSchema } from '@/lib/zod';
 
 import ErrorMessage from './error-message';
 
-export default function RegisterForm() {
+export default function SignUpForm() {
   const {
     register,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterInputs>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<SignUpInputs>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: '',
       username: '',
@@ -26,7 +26,7 @@ export default function RegisterForm() {
 
   return (
     <section className="grid gap-4">
-      <form action={signUp} className="grid gap-4">
+      <form action={signup} className="grid gap-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="grid gap-2">
             <Label htmlFor="name">Your Name</Label>

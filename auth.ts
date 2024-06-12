@@ -6,7 +6,7 @@ import Google from 'next-auth/providers/google';
 import { ZodError } from 'zod';
 
 import prisma from '@/lib/db';
-import { signInSchema } from '@/lib/zod';
+import { logInSchema } from '@/lib/zod';
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -18,8 +18,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
       authorize: async (credentials) => {
         try {
-          const { email, password } =
-            await signInSchema.parseAsync(credentials);
+          const { email, password } = await logInSchema.parseAsync(credentials);
 
           if (!email || !password) {
             throw new Error('Invalid credentials');
@@ -53,4 +52,5 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   debug: process.env.NODE_ENV !== 'production',
+  trustHost: true,
 });

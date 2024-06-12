@@ -3,13 +3,13 @@
 import bcrypt from 'bcryptjs';
 
 import prisma from '@/lib/db';
-import { registerSchema } from '@/lib/zod';
+import { signUpSchema } from '@/lib/zod';
 
-export default async function register(formData: FormData) {
+export default async function signup(formData: FormData) {
   const data = Object.fromEntries(formData);
 
   try {
-    const parsedData = await registerSchema.parseAsync(data);
+    const parsedData = await signUpSchema.parseAsync(data);
     const { name, username, email, password } = parsedData;
 
     // Check if the email is already in use

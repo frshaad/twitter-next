@@ -10,7 +10,7 @@ import {
 
 import FooterSwitchForm from './footer-switch-form';
 import LoginForm from './login-form';
-import RegisterForm from './register-form';
+import SignUpForm from './signup-form';
 
 export default function AuthForm() {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -25,7 +25,7 @@ export default function AuthForm() {
             : 'Enter your information to create an account'}
         </DialogDescription>
       </DialogHeader>
-      {isLoginForm ? <LoginForm /> : <RegisterForm />}
+      {isLoginForm ? <LoginForm /> : <SignUpForm />}
       <DialogFooter>
         {isLoginForm ? (
           <FooterSwitchForm switchFn={setIsLoginForm} />
