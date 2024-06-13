@@ -1,4 +1,7 @@
+'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { FaGithub, FaGoogle } from 'react-icons/fa6';
 
@@ -25,28 +28,40 @@ export default function SignUpForm() {
   });
 
   return (
-    <section className="grid gap-4">
-      <form action={signup} className="grid gap-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="name">Your Name</Label>
-            <Input id="name" placeholder="John Doe" {...register('name')} />
-            {errors.name?.message && (
-              <ErrorMessage message={errors.name.message} />
-            )}
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="username">Username</Label>
-            <Input
-              id="username"
-              placeholder="johndoe"
-              {...register('username')}
-            />
-            {errors.username?.message && (
-              <ErrorMessage message={errors.username.message} />
-            )}
-          </div>
+    <form action={signup} className="mx-auto grid w-[350px] gap-6">
+      <div className="grid gap-2 text-center">
+        <h1 className="text-3xl font-bold">Sign Up</h1>
+        <p className="text-balance text-muted-foreground">
+          Enter your information to create an account
+        </p>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-2">
+          <Label htmlFor="full-name">Full Name</Label>
+          <Input
+            id="full-name"
+            placeholder="John Doe"
+            {...register('name')}
+            required
+          />
+          {errors.name?.message && (
+            <ErrorMessage message={errors.name.message} />
+          )}
         </div>
+        <div className="grid gap-2">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            placeholder="@johndoe"
+            {...register('username')}
+            required
+          />
+          {errors.username?.message && (
+            <ErrorMessage message={errors.username.message} />
+          )}
+        </div>
+      </div>
+      <div className="grid gap-4">
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
           <Input
@@ -54,33 +69,45 @@ export default function SignUpForm() {
             type="email"
             placeholder="john@example.com"
             {...register('email')}
+            required
           />
           {errors.email?.message && (
             <ErrorMessage message={errors.email.message} />
           )}
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" {...register('password')} />
+          <div className="flex items-center">
+            <Label htmlFor="password">Password</Label>
+          </div>
+          <Input
+            id="password"
+            type="password"
+            placeholder="********"
+            {...register('password')}
+            required
+          />
           {errors.password?.message && (
             <ErrorMessage message={errors.password.message} />
           )}
         </div>
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          Create an account
+        <Button type="submit" className="mb-8 w-full" disabled={isSubmitting}>
+          Sign Up
         </Button>
-      </form>
-
-      <div className="flex items-center justify-between gap-3">
-        <Button variant="outline" className="flex w-full items-center gap-2">
+        <Button variant="outline" className="flex w-full items-center gap-4">
           <FaGoogle />
-          Google
+          Continue with Google
         </Button>
-        <Button variant="outline" className="flex w-full items-center gap-2">
+        <Button variant="outline" className="flex w-full items-center gap-4">
           <FaGithub />
-          GitHub
+          Continue with Github
         </Button>
       </div>
-    </section>
+      <div className="mt-4 text-center text-sm">
+        Already have an account?{' '}
+        <Link href="/login" className="underline">
+          Log In
+        </Link>
+      </div>
+    </form>
   );
 }
