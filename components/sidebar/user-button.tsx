@@ -34,12 +34,6 @@ export default function UserButton() {
         <DropdownMenuLabel>@{username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={handleGoToProfile}
-          className="cursor-pointer"
-        >
-          Profile
-        </DropdownMenuItem>
-        <DropdownMenuItem
           onClick={handleLogOut}
           className="cursor-pointer text-destructive"
         >

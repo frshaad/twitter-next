@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { FaTwitter } from "react-icons/fa6";
+import Link from 'next/link';
+import { FaTwitter } from 'react-icons/fa6';
 
-import { Button } from "../ui/button";
+import { Button } from '@/components/ui/button';
 
 export default function Logo() {
   return (
